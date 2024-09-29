@@ -1,0 +1,26 @@
+package com.boostore.jpa.models;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+// o Serializable mostra que a classe pode ser serializada
+import java.io.Serializable;
+
+@Entity
+@Table(name = "book")
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
+public class BookModel implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    // nornalmente usar UUID como chave primaria é comum em arquiteturas distribuidas
+    private int id;
+    @Column(nullable = false, unique = true)
+    private String title;
+
+
+}

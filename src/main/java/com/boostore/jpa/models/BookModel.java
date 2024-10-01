@@ -5,6 +5,8 @@ import lombok.*;
 
 // o Serializable mostra que a classe pode ser serializada
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -22,7 +24,17 @@ public class BookModel implements Serializable {
     private String title;
 
     @ManyToOne
-    //nome da chave estrangeira na tabela book
     @JoinColumn(name = "publiser_id")
     private PublisherModel publisher;
+
+    @ManyToMany
+    @JoinTable(
+            name = "book_author",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private Set<AuthorModel> authors = new HashSet<>();
+
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+    private ReviewModel review;
 }

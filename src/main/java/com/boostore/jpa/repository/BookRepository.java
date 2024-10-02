@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface BookRepository extends JpaRepository<BookModel, Integer> {
+public interface BookRepository extends JpaRepository<BookModel, Long> {
     BookModel findBookModelByTitle(String title);
     @Query(value = "SELECT * FROM book WHERE publisher_id = :id", nativeQuery = true)
     List<BookModel> findBooksByPublisherId(@Param("id") Integer id);
